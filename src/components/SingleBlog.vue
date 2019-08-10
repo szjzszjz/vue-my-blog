@@ -1,8 +1,15 @@
 <template>
   <div id="single-blog" v-theme="'narrow'">
     <h2>{{blog.title}}</h2>
+    <p>作者：{{blog.author}}</p>
+    <p>分类：</p>
+    <ul>
+      <li v-for="(category,index) of blog.categories" :key="index">
+        {{category}}
+      </li>
+    </ul>
     <hr>
-    <article>{{blog.body}}</article>
+    <article>{{blog.content}}</article>
   </div>
 </template>
 
@@ -20,7 +27,7 @@ export default {
 
   // 页面未展示之前请求参数
   created () {
-    axios.get('http://jsonplaceholder.typicode.com/posts/' + this.id)
+    axios.get('https://my-blog-c88ab.firebaseio.com/posts/' + this.id + '.json')
       .then(res => {
         console.log(res)
         this.blog = res.data

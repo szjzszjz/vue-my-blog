@@ -77,41 +77,12 @@ export default {
   methods: {
     post: function () {
       this.submitted = true
-      // this.$http.jsonp('http://jsonplaceholder.typicode.com/posts', {
-      //   title: this.blog.title,
-      //   body: this.blog.content,
-      //   userId: 1
-      // }).then(
-      //   function (successCallback) {
-      //     console.log(successCallback)
-      //   },
-      //   function (errorCallback) {
-      //     console.log(errorCallback)
-      //   })
-
-      // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
-      axios.post('https://my-blog-152ac.firebaseio.com/posts', this.blog)
+      axios.post('https://my-blog-c88ab.firebaseio.com/posts.json', this.blog)
         .then(function (data) {
           console.log(data)
         }).catch(err => {
           console.log(err)
         })
-      // https://my-blog-152ac.firebaseio.com/1/4A9VIh28cgAeRwn7BfBY
-      // axios.post('http://jsonplaceholder.typicode.com/posts', {
-      //   title: this.blog.title,
-      //   body: this.blog.content,
-      //   userId: 1
-      // }, {
-      //   headers: {
-      //     'Access-Control-Allow-Origin': '*',
-      //     'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
-      //     'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
-      //   }
-      // }).then(function (data) {
-      //   console.log(data)
-      // }).catch(err => {
-      //   console.log(err)
-      // })
     },
     hClick: function () {
       this.submitted = false

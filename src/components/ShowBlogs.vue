@@ -7,7 +7,7 @@
       <router-link v-bind:to="'/blog/' + blog.id">
         <!--      | 为通道 通道左边为要传的参数-->
         <h3 v-rainbow>{{blog.title | to-uppercase}}</h3>
-        <article>{{blog.body | snippet}}</article>
+        <article>{{blog.content | snippet}}</article>
       </router-link>
     </div>
   </div>
@@ -15,7 +15,6 @@
 
 <script>
 import axios from 'axios'
-
 export default {
   name: 'ShowBlogs',
   data () {
@@ -25,11 +24,17 @@ export default {
     }
   },
   // 钩子函数 页面展示之前请求数据
-  created () {
-    axios.get('http://jsonplaceholder.typicode.com/posts')
+  created: function () {
+    axios.get('https://my-blog-c88ab.firebaseio.com/posts.json')
       .then(res => {
-        this.blogs = res.data.slice(0, 10)
-        console.log(this.blogs)
+        for (let key in res.data) {
+          var object = res.data
+          // console.log(key)
+          // console.log(res.data[key])
+          object[key].id = key
+          this.blogs.push(object[key])
+          console.log(this.blogs)
+        }
       }).catch(err => {
         console.log(err)
       })
