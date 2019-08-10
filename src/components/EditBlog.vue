@@ -1,6 +1,6 @@
 <template>
   <div id="add-blog">
-    <h2 v-on:click="hClick">添加博客</h2>
+    <h2 v-on:click="hClick">编辑博客</h2>
     <form v-if="!submitted">
 
       <label>博客标题</label>
@@ -28,10 +28,10 @@
         </option>
       </select>
 
-      <button v-on:click.prevent="post">完成修改</button>
+      <button v-on:click.prevent="edit">添加博客</button>
     </form>
 
-    <h4 v-if="submitted">发布成功！</h4>
+    <h4 v-if="submitted">修改成功！</h4>
     <hr>
 
     <!--    内容预览-->
@@ -59,12 +59,8 @@ export default {
   name: 'AddBlog',
   data: function () {
     return {
-      blog: {
-        title: '',
-        content: '',
-        categories: [],
-        author: ''
-      },
+      id: this.$route.params.id,
+      blog: {},
       authors: [
         'bobi',
         'haney',
@@ -75,9 +71,9 @@ export default {
     }
   },
   methods: {
-    post: function () {
+    edit: function () {
       this.submitted = true
-      axios.post('https://my-blog-c88ab.firebaseio.com/posts.json', this.blog)
+      axios.put('https://my-blog-c88ab.firebaseio.com/posts/' + this.id + '.json', this.blog)
         .then(function (data) {
           console.log(data)
         }).catch(err => {
@@ -87,6 +83,15 @@ export default {
     hClick: function () {
       this.submitted = false
     }
+  },
+  created () {
+    axios.get('https://my-blog-c88ab.firebaseio.com/posts/' + this.id + '.json')
+      .then(res => {
+        console.log(res)
+        this.blog = res.data
+      }).catch(err => {
+        console.log(err)
+      })
   }
 }
 </script>
