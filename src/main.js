@@ -2,13 +2,16 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import Resource from 'vue-resource'
-
+// import Resource from 'vue-resource'
+import axios from 'axios'
 import router from './router'
 
 Vue.config.productionTip = false
-Vue.use(Resource)
+// Vue.use(Resource)
 /* eslint-disable no-new */
+
+// 配置全局的URL
+axios.defaults.baseURL = 'https://my-blog-c88ab.firebaseio.com'
 
 // 自定义全局指令 不传参
 Vue.directive('rainbow', {

@@ -73,7 +73,7 @@ export default {
   methods: {
     edit: function () {
       this.submitted = true
-      axios.put('https://my-blog-c88ab.firebaseio.com/posts/' + this.id + '.json', this.blog)
+      axios.put('/posts/' + this.id + '.json', this.blog)
         .then(function (data) {
           console.log(data)
         }).catch(err => {
@@ -85,7 +85,7 @@ export default {
     }
   },
   created () {
-    axios.get('https://my-blog-c88ab.firebaseio.com/posts/' + this.id + '.json')
+    axios.get('/posts/' + this.id + '.json')
       .then(res => {
         console.log(res)
         this.blog = res.data

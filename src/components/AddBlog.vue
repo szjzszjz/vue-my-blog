@@ -77,7 +77,7 @@ export default {
   methods: {
     post: function () {
       this.submitted = true
-      axios.post('https://my-blog-c88ab.firebaseio.com/posts.json', this.blog)
+      axios.post('/posts.json', this.blog)
         .then(function (data) {
           console.log(data)
         }).catch(err => {

@@ -25,12 +25,13 @@ export default {
   },
   // 钩子函数 页面展示之前请求数据
   created: function () {
-    axios.get('https://my-blog-c88ab.firebaseio.com/posts.json')
+    axios.get('/posts.json')
       .then(res => {
         for (let key in res.data) {
           var object = res.data
           // console.log(key)
           // console.log(res.data[key])
+          console.log('url: ' + this.url)
           object[key].id = key
           this.blogs.push(object[key])
           console.log(this.blogs)

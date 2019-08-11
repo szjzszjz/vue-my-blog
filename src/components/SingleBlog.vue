@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     deleteBlog: function () {
-      axios.delete('https://my-blog-c88ab.firebaseio.com/posts/' + this.id + '.json')
+      axios.delete('/posts/' + this.id + '.json')
         .then(res => {
           console.log(res)
           this.$router.push({path: '/'}) // 删除完之后，跳转到主页
@@ -47,7 +47,7 @@ export default {
 
   // 页面未展示之前请求参数
   created () {
-    axios.get('https://my-blog-c88ab.firebaseio.com/posts/' + this.id + '.json')
+    axios.get('/posts/' + this.id + '.json')
       .then(res => {
         console.log(res)
         this.blog = res.data
