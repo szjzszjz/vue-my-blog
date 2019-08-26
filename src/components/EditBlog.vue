@@ -12,23 +12,24 @@
       <label>标签</label>
       <div id="checkboxes">
         <label>Vue.js</label>
-        <input type="checkbox" value="Vue.js" v-model="blog.categories">
+        <input type="checkbox" value="Vue.js" v-model="categoryArr">
         <label>Node.js</label>
-        <input type="checkbox" value="Node.js" v-model="blog.categories">
+        <input type="checkbox" value="Node.js" v-model="categoryArr">
         <label>Rect</label>
-        <input type="checkbox" value="Rect" v-model="blog.categories">
+        <input type="checkbox" value="Rect" v-model="categoryArr">
         <label>Angular.js</label>
-        <input type="checkbox" value="Angular.js" v-model="blog.categories">
+        <input type="checkbox" value="Angular.js" v-model="categoryArr">
       </div>
 
       <label>作者</label>
-      <select v-model="blog.author">
+       <input type="text" v-model="blog.author" placeholder="请输入作者名称" />
+      <!-- <select v-model="blog.author">
         <option v-for="(author,index) of authors" :key="index">
           {{author}}
         </option>
-      </select>
+      </select> -->
 
-      <button v-on:click.prevent="edit">添加博客</button>
+      <button v-on:click.prevent="edit">完成</button>
     </form>
 
     <h4 v-if="submitted">修改成功！</h4>
@@ -44,7 +45,7 @@
       <div id="tag">
         <p>标签：</p>
         <ul>
-          <li v-for="(category,index) of blog.categories" :key="index">{{category}}</li>
+          <li v-for="(category,index) of categoryArr" :key="index">{{category}}</li>
         </ul>
       </div>
       <p>作者：{{blog.author}}</p>
@@ -61,21 +62,20 @@ export default {
     return {
       id: this.$route.params.id,
       blog: {},
-      authors: [
-        'bobi',
-        'haney',
-        'johan'
-      ],
+      categoryArr: [],
       submitted: false
-
     }
   },
   methods: {
     edit: function () {
-      this.submitted = true
-      axios.put('/posts/' + this.id + '.json', this.blog)
-        .then(function (data) {
-          console.log(data)
+      this.blog.categories = this.categoryArr.join(',')
+      console.log('/blog/update?id=', this.id)
+      axios.post('/blog/update?id=' + this.id, this.blog)
+        .then((res) => {
+          console.log('ok')
+
+          this.submitted = true
+          console.log(res)
         }).catch(err => {
           console.log(err)
         })
@@ -85,10 +85,12 @@ export default {
     }
   },
   created () {
-    axios.get('/posts/' + this.id + '.json')
+    console.log('id--', this.id)
+    axios.get('/blog/detail?id=' + this.id)
       .then(res => {
-        console.log(res)
-        this.blog = res.data
+        this.blog = res.data.data[0]
+        this.categoryArr = this.blog.categories.split(',')
+        console.log(this.blog)
       }).catch(err => {
         console.log(err)
       })

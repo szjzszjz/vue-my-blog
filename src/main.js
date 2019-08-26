@@ -9,9 +9,11 @@ import router from './router'
 Vue.config.productionTip = false
 // Vue.use(Resource)
 /* eslint-disable no-new */
-
+// 全局的axios
+Vue.prototype.axios = axios
 // 配置全局的URL
-axios.defaults.baseURL = 'https://my-blog-c88ab.firebaseio.com'
+// axios.defaults.baseURL = 'https://my-blog-c88ab.firebaseio.com'
+axios.defaults.baseURL = 'http://localhost:8080/api'
 
 // 自定义全局指令 不传参
 Vue.directive('rainbow', {

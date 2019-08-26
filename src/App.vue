@@ -1,18 +1,21 @@
 <template>
   <div id="app">
-    <blog-header/>
+    <blog-header v-if="showHeader"/>
     <router-view/>
   </div>
 </template>
 
 <script>
 
-// import ShowBlogs from '@/components/ShowBlogs'
-// import AddBlog from '@/components/AddBlog'
 import BlogHeader from '@/components/BlogHeader'
 
 export default {
   name: 'App',
+  data () {
+    return {
+      showHeader: false
+    }
+  },
   components: {
     BlogHeader
   }
