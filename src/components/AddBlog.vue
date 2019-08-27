@@ -47,7 +47,7 @@
       </div>
       <p>作者：{{blog.author}}</p>
     </div>
-    <button @click="again">再写一篇</button>
+    <button @click="again" v-show='showAgain'>再写一篇</button>
   </div>
 </template>
 
@@ -70,7 +70,8 @@ export default {
         'johan'
       ],
       categoryArr: [],
-      submitted: false
+      submitted: false,
+      showAgain: false
     }
   },
   methods: {
@@ -84,10 +85,16 @@ export default {
         axios.post('/blog/new', this.blog)
           .then((data) => {
             this.submitted = true
+            this.showAgain = true
             console.log(data)
           }).catch(err => {
             console.log(err)
           })
+      } else {
+        this.$alert({
+          content: '请选择分类',
+          bgc: '#eee'
+        })
       }
     },
     hClick: function () {

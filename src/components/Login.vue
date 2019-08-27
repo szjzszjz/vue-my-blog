@@ -3,7 +3,7 @@
     <div class="col-md-12 col-lg-12 ">
       <div class="card loginc">
         <div class="card-body">
-          <img src="../assets/logo.png" alt class="mx-auto d-block col-md-3" />
+          <img src="../assets/logo.png" alt class="mx-auto d-block col-md-3" @click="alertView"/>
           <form @submit.prevent="onSubmit">
             <div class="form-group text-center mt-5">
               <label for="user.username">用戶名</label>
@@ -34,19 +34,31 @@ export default {
   },
   methods: {
     onSubmit () {
-      console.log('login------------')
-
       this.axios.post('/user/login', this.user)
         .then((res) => {
-          console.log('/api/user/login--', res.data)
-
-          if (res.data['errno'] !== -1) {
+          const result = res.data
+          if (result['errno'] !== -1) {
             this.$router.push('/show')
           }
+          this.$alert({
+            content: result['msg'],
+            bgc: 'rgba(136, 146, 155, 0.8)',
+            autoCloseTime: 2000
+          })
         }).catch((err) => {
           console.log(err)
         })
+    },
+    alertView () {
+      this.$alert({
+        content: '这是提醒',
+        bgc: 'rgba(136, 146, 155, 0.8)',
+        autoCloseTime: 2000
+      })
     }
+  },
+  created () {
+    this.$emit('changeStatus', false)
   }
   // 导航守卫 退出之后清空所有的信息
   // beforeRouteEnter: (to, from, next) => {

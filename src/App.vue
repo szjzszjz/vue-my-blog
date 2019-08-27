@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
+  <div id="app" >
     <blog-header v-if="showHeader"/>
-    <router-view/>
+    <router-view @changeStatus="changeStatus"/>
   </div>
 </template>
 
@@ -13,11 +13,17 @@ export default {
   name: 'App',
   data () {
     return {
-      showHeader: false
+      showHeader: true
     }
   },
   components: {
     BlogHeader
+  },
+  methods: {
+    changeStatus (e) {
+      console.log('change=', e)
+      this.showHeader = e
+    }
   }
 }
 </script>

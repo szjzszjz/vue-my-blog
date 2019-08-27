@@ -26,12 +26,12 @@ export default {
   // 钩子函数 页面展示之前请求数据
   created: function () {
     // isadmin=1 使用登陆者的用户名
+    this.$emit('changeStatus', true)
     axios
-      .get('/blog/list?isadmin=1')
+      .get('/blog/list')
       .then(res => {
         console.log('/blog/list--', res.data)
         const dataObject = res.data
-
         dataObject['data'].forEach((data) => {
           this.blogs.push(data)
         })

@@ -5,7 +5,11 @@ import App from './App'
 // import Resource from 'vue-resource'
 import axios from 'axios'
 import router from './router'
+import AlertView from './common/alert/index'
+import NotificationBar from './common/notification/index'
 
+Vue.use(AlertView)
+Vue.use(NotificationBar)
 Vue.config.productionTip = false
 // Vue.use(Resource)
 /* eslint-disable no-new */

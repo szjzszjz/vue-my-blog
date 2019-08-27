@@ -35,7 +35,7 @@ export default {
       axios.post('/blog/delete?id=' + this.id)
         .then(res => {
           console.log(res)
-          this.$router.push({path: '/'}) // 删除完之后，跳转到主页
+          this.$router.push({path: '/show'}) // 删除完之后，跳转到主页
         }).catch(err => {
           console.log(err)
         })
