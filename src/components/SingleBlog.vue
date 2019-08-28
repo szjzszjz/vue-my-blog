@@ -34,7 +34,9 @@ export default {
       console.log('/blog/delete?id=', this.id)
       axios.post('/blog/delete?id=' + this.id)
         .then(res => {
-          console.log(res)
+          this.$alert({
+            content: res['data']['msg']
+          })
           this.$router.push({path: '/show'}) // 删除完之后，跳转到主页
         }).catch(err => {
           console.log(err)

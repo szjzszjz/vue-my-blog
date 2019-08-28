@@ -25,7 +25,7 @@ export default {
     },
     bgc: {
       type: String,
-      default: '#303030'
+      default: '#eee'
     },
     autoCloseTime: {
       type: Number,

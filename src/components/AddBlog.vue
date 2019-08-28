@@ -20,8 +20,8 @@
         <input type="checkbox" value="Angular.js" v-model="categoryArr" />
       </div>
 
-      <label>作者</label>
-      <input type="text" v-model="blog.author" placeholder="请输入作者名称" />
+      <!-- <label>作者：{{blog.author}}</label> -->
+      <!-- <input type="text" v-model="blog.author" placeholder="请输入作者名称" /> -->
       <!-- <select v-model="blog.author">
         <option v-for="(author,index) of authors" :key="index">{{author}}</option>
       </select>-->
@@ -45,9 +45,9 @@
           <li v-for="(category,index) of this.categoryArr" :key="index">{{category}}</li>
         </ul>
       </div>
-      <p>作者：{{blog.author}}</p>
+      <!-- <p>作者：{{blog.author}}</p> -->
     </div>
-    <button @click="again" v-show='showAgain'>再写一篇</button>
+    <button @click="again" v-show="showAgain">再写一篇</button>
   </div>
 </template>
 
@@ -86,7 +86,12 @@ export default {
           .then((data) => {
             this.submitted = true
             this.showAgain = true
-            console.log(data)
+            // console.log(data['data']['data']['id'])
+            if (data['data']['data']['id']) {
+              this.$alert({
+                content: '发布成功！'
+              })
+            }
           }).catch(err => {
             console.log(err)
           })

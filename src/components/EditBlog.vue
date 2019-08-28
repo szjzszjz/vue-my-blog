@@ -20,8 +20,8 @@
         <input type="checkbox" value="Angular.js" v-model="categoryArr" />
       </div>
 
-      <label>作者</label>
-      <input type="text" v-model="blog.author" placeholder="请输入作者名称" />
+      <label>作者：{{blog.author}}</label>
+      <!-- <input type="text" v-model="blog.author" placeholder="请输入作者名称" /> -->
 
       <button v-on:click.prevent="edit">完成</button>
     </form>
