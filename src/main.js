@@ -5,7 +5,7 @@ import App from './App'
 // import Resource from 'vue-resource'
 import axios from 'axios'
 import router from './router'
-import { store } from './store/index'
+// import { store } from './store/index'
 import AlertView from './common/alert/index'
 import NotificationBar from './common/notification/index'
 
@@ -53,6 +53,16 @@ router.beforeEach((to, from, next) => {
     if (to.path === '/') {
         next()
     } else {
+        console.log(to.meta.requireAuth)
+        console.log(sessionStorage.getItem('accessToken'))
+
+        if (to.meta.requireAuth && !sessionStorage.getItem('accessToken')) {
+            console.log('该页面需要登陆')
+            next({ path: '/' })
+        } else {
+            console.log('该页面随意访问')
+            next()
+        }
         console.log(to.path)
     }
 })
@@ -60,7 +70,7 @@ router.beforeEach((to, from, next) => {
 new Vue({
     el: '#app',
     router,
-    store,
+    // store,
     components: { App },
     template: '<App/>'
 })

@@ -9,32 +9,38 @@ import Login from '@/components/Login'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'Login',
-      component: Login
-    },
-    {
-      path: '/show',
-      name: 'ShowBlogs',
-      component: ShowBlogs
-    },
-    {
-      path: '/add',
-      name: 'AddBlog',
-      component: AddBlog
-    },
-    {
-      path: '/blog/:id',
-      name: 'SingleBlog',
-      component: SingleBlog
-    },
-    {
-      path: '/edit/blog/:id',
-      name: 'EditBlog',
-      component: EditBlog
-    }
-  ],
-  mode: 'history' // 去掉地址后面默认自带的“#/” 实现正确的路由跳转
+    routes: [
+        {
+            path: '/',
+            name: 'Login',
+            component: Login
+        },
+        {
+            path: '/show',
+            name: 'ShowBlogs',
+            component: ShowBlogs,
+            meta: {
+                requireAuth: true
+            }
+        },
+        {
+            path: '/add',
+            name: 'AddBlog',
+            component: AddBlog,
+            meta: {
+                requireAuth: true
+            }
+        },
+        {
+            path: '/blog/:id',
+            name: 'SingleBlog',
+            component: SingleBlog
+        },
+        {
+            path: '/edit/blog/:id',
+            name: 'EditBlog',
+            component: EditBlog
+        }
+    ],
+    mode: 'history' // 去掉地址后面默认自带的“#/” 实现正确的路由跳转
 })

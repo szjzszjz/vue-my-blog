@@ -42,6 +42,7 @@ export default {
         .then((res) => {
           const result = res.data
           if (result['errno'] !== -1) {
+             sessionStorage.setItem('accessToken', 'login-success')
             this.$router.push('/show')
           }
           this.$alert({
