@@ -51,7 +51,7 @@
 import axios from 'axios'
 export default {
   name: 'AddBlog',
-  data: function () {
+  data: function() {
     return {
       id: this.$route.params.id,
       blog: {},
@@ -60,12 +60,12 @@ export default {
       timer: ''
     }
   },
-  beforeDestroy () {
+  beforeDestroy() {
     window.clearTimeout(this.timer)
     console.log('beforeDestroy', this.timer)
   },
   methods: {
-    edit: function () {
+    edit: function() {
       this.blog.categories = this.categoryArr.join(',')
       console.log('/blog/update?id=', this.id)
       axios.post('/blog/update?id=' + this.id, this.blog)
@@ -78,16 +78,16 @@ export default {
           console.log(err)
         })
     },
-    hClick: function () {
+    hClick: function() {
       this.submitted = false
     },
-    createTimer () {
+    createTimer() {
       this.timer = setTimeout(() => {
         this.$router.push('/blog/' + this.id)
       }, 2000)
     }
   },
-  created () {
+  created() {
     console.log('id--', this.id)
     axios.get('/blog/detail?id=' + this.id)
       .then(res => {

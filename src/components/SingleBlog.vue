@@ -22,14 +22,14 @@ import {formatDate} from '../utils/Date'
 
 export default {
   name: 'SingleBlog',
-  data () {
+  data() {
     return {
       id: this.$route.params.id,
       blog: {}
     }
   },
   methods: {
-    deleteBlog: function () {
+    deleteBlog: function() {
       // 删除博客
       console.log('/blog/delete?id=', this.id)
       axios.post('/blog/delete?id=' + this.id)
@@ -42,28 +42,28 @@ export default {
           console.log(err)
         })
     },
-    updateBlog () {
+    updateBlog() {
       this.$router.push({path: '/edit/blog/' + this.blog.id})
     }
 
   },
   computed: {
-    categories () {
+    categories() {
       return this.blog.categories.split(',')
     },
-    time () {
+    time() {
       return this.blog.createtime
     }
   },
   filters: {
-    formatDate (time) {
+    formatDate(time) {
       var date = new Date(time)
       return formatDate(date, 'yyyy-MM-dd hh:mm')
     }
   },
 
   // 页面未展示之前请求参数
-  created () {
+  created() {
     // 博客详情
     axios.get('/blog/detail?id=' + this.id)
       .then(res => {

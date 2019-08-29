@@ -17,14 +17,14 @@
 import axios from 'axios'
 export default {
   name: 'ShowBlogs',
-  data () {
+  data() {
     return {
       blogs: [],
       search: ''
     }
   },
   // 钩子函数 页面展示之前请求数据
-  created: function () {
+  created: () => {
     // isadmin=1 使用登陆者的用户名
     this.$emit('changeStatus', true)
     axios
@@ -42,7 +42,7 @@ export default {
   },
   // 计算属性
   computed: {
-    filteredBlogs: function () {
+    filteredBlogs: () => {
       return this.blogs.filter(blog => {
         return blog.title.match(this.search)
       })
@@ -51,7 +51,7 @@ export default {
 
   // 自定义局部过滤器
   filters: {
-    'to-uppercase': function (value) {
+    'to-uppercase': (value) => {
       return value.toUpperCase()
     }
 
@@ -63,7 +63,7 @@ export default {
   // 自定义局部指令
   directives: {
     rainbow: {
-      bind (el, binding, vnode) {
+      bind(el, binding, vnode) {
         el.style.color =
           '#' +
           Math.random()

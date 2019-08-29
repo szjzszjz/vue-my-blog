@@ -56,7 +56,7 @@ import axios from 'axios'
 
 export default {
   name: 'AddBlog',
-  data: function () {
+  data: function() {
     return {
       blog: {
         title: '',
@@ -76,7 +76,7 @@ export default {
   },
   methods: {
     // 新增博客
-    post: function () {
+    post: function() {
       this.blog.categories = this.categoryArr.join(',')
       console.log('this.blog.categories--', this.blog.categories)
       console.log('this.categoryArr', this.categoryArr)
@@ -93,6 +93,11 @@ export default {
               })
             }
           }).catch(err => {
+            this.submitted = false
+            this.showAgain = false
+            this.$alert({
+              content: '发布失败！'
+            })
             console.log(err)
           })
       } else {
@@ -102,10 +107,10 @@ export default {
         })
       }
     },
-    hClick: function () {
+    hClick: function() {
     //   this.submitted = false
     },
-    again () {
+    again() {
       // 刷新当前界面
       this.$router.go(0)
     }
