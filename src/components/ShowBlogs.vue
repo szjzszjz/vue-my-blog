@@ -24,14 +24,17 @@ export default {
     }
   },
   // 钩子函数 页面展示之前请求数据
-  created: () => {
-    // isadmin=1 使用登陆者的用户名
+  // 注意********** 钩子函数不能转换为箭头函数
+  created: function() {
     this.$emit('changeStatus', true)
     axios
       .get('/blog/list')
       .then(res => {
         console.log('/blog/list--', res.data)
         const dataObject = res.data
+        if (dataObject['errno'] === -1) {
+             sessionStorage.setItem('accessToken', '')
+        }
         dataObject['data'].forEach((data) => {
           this.blogs.push(data)
         })
@@ -42,7 +45,7 @@ export default {
   },
   // 计算属性
   computed: {
-    filteredBlogs: () => {
+    filteredBlogs: function() {
       return this.blogs.filter(blog => {
         return blog.title.match(this.search)
       })

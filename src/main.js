@@ -49,6 +49,7 @@ Vue.filter('snippet', function (value) {
     return value.slice(0, 100) + '  ...'
 })
 
+// 全局导航路由 登录验证
 router.beforeEach((to, from, next) => {
     if (to.path === '/') {
         next()

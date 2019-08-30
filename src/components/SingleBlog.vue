@@ -67,6 +67,13 @@ export default {
     // 博客详情
     axios.get('/blog/detail?id=' + this.id)
       .then(res => {
+          const result = res.data
+              console.log(res.data)
+          if (result['errno'] === -1) {
+              sessionStorage.setItem('accessToken', '')
+           return
+          }
+
         this.blog = res.data.data[0]
         console.log(this.blog.categories)
       }).catch(err => {

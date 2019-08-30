@@ -4,21 +4,6 @@
 
 ## [node-blog 后台服务工程](https://github.com/szjzszjz/node-blog-1/tree/master)
 
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
 ## [Vue从搭建项目到打包的基本流程](http://note.youdao.com/noteshare?id=7d723b445de3c0bad26a6bd94f18483b&sub=953B8B7E4F1F405DA214CCCDC8672B08)
 
 ## install plugins
@@ -40,7 +25,7 @@ npm install axios --save
 npm run start
 ```  
 使用：
-```vuejs
+```js
 // 钩子函数 页面展示之前请求数据
   created () {
     axios.get('http://jsonplaceholder.typicode.com/posts')
@@ -56,7 +41,7 @@ npm run start
 ## 知识点  
 ### 1、自定义指令 （v-xxx）  
 自定义全局指令  
-```javascript
+```js
 // 自定义指令 不传参
 Vue.directive('rainbow', {
   bind (element, binding, vNode) {
@@ -80,7 +65,7 @@ Vue.directive('theme', {
 })
 ```
 自定义局部指令
-```vuejs
+```js
   directives: {
     'rainbow': {
       bind (el, binding, vnode) {
@@ -90,7 +75,7 @@ Vue.directive('theme', {
   }
 ```
 使用：
-```Vue
+```js
  <div id="show-blogs" v-theme:column="'narrow'">
     <h2>我的博客</h2>
     <div id="blog" v-for="blog of blogs" :key="blog.id">
@@ -102,7 +87,7 @@ Vue.directive('theme', {
 
 ### 2、自定义过滤器  
 自定义全局过滤器
-```vuejs
+```js
 //  (让所有的标题都是大写)
 Vue.filter('to-uppercase', function (value) {
   return value.toUpperCase()
@@ -114,7 +99,7 @@ Vue.filter('snippet', function (value) {
 })
 ```
 自定义局部过滤器
-```vuejs
+```js
  // 自定义局部过滤器
   filters: {
     'to-uppercase': function (value) {
@@ -127,11 +112,63 @@ Vue.filter('snippet', function (value) {
   }
 ```
 使用：  
-```Vue
+```js
 <!--      | 为通道 通道左边为要传的参数-->
       <h3 v-rainbow>{{blog.title | to-uppercase}}</h3>
       <article>{{blog.body | snippet}}</article>
 ```
+### 全局导航路由 登录验证
+```js
+router.beforeEach((to, from, next) => {
+    if (to.path === '/') {
+        next()
+    } else {
+        console.log(to.meta.requireAuth)
+        console.log(sessionStorage.getItem('accessToken'))
 
+        if (to.meta.requireAuth && !sessionStorage.getItem('accessToken')) {
+            console.log('该页面需要登陆')
+            next({ path: '/' })
+        } else {
+            console.log('该页面随意访问')
+            next()
+        }
+        console.log(to.path)
+    }
+})
+```
+router->index.js  
+```js
+routes: [
+        {
+            path: '/',
+            name: 'Login',
+            component: Login
+        },
+        {
+            path: '/show',
+            name: 'ShowBlogs',
+            component: ShowBlogs,
+            meta: {
+                requireAuth: true
+            }
+        }
+]
+```
 
+## Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
+```
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
