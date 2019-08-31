@@ -124,9 +124,9 @@ router.beforeEach((to, from, next) => {
         next()
     } else {
         console.log(to.meta.requireAuth)
-        console.log(sessionStorage.getItem('accessToken'))
+        console.log(sessionStorage.getItem('key'))
 
-        if (to.meta.requireAuth && !sessionStorage.getItem('accessToken')) {
+        if (to.meta.requireAuth && !sessionStorage.getItem('key')) {
             console.log('该页面需要登陆')
             next({ path: '/' })
         } else {

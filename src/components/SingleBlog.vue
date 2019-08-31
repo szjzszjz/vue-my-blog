@@ -70,7 +70,7 @@ export default {
           const result = res.data
               console.log(res.data)
           if (result['errno'] === -1) {
-              sessionStorage.setItem('accessToken', '')
+              sessionStorage.setItem('key', '')
            return
           }
 

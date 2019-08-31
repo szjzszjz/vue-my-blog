@@ -70,6 +70,11 @@ export default {
       console.log('/blog/update?id=', this.id)
       axios.post('/blog/update?id=' + this.id, this.blog)
         .then((res) => {
+             const errno = res['data']['errno']
+            if (errno === -1) {
+                sessionStorage.setItem('key', '')
+                return
+            }
           console.log('ok')
           this.createTimer()
           this.submitted = true

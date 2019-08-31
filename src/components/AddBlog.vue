@@ -86,7 +86,13 @@ export default {
           .then((data) => {
             this.submitted = true
             this.showAgain = true
-            // console.log(data['data']['data']['id'])
+            const errno = data['data']['errno']
+            if (errno === -1) {
+                sessionStorage.setItem('key', '')
+                return
+            }
+
+            console.log('发布的数据=', data)
             if (data['data']['data']['id']) {
               this.$alert({
                 content: '发布成功！'

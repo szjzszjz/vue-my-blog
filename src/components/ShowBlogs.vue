@@ -2,14 +2,17 @@
   <div id="show-blogs" v-theme:column="'narrow'">
     <h2>我的博客</h2>
     <input type="text" placeholder="搜索" v-model="search" />
-    <div id="blog" v-for="blog of filteredBlogs" :key="blog.id">
-      <!--      跳转界面并传参-->
-      <router-link v-bind:to="'/blog/' + blog.id">
-        <!--      | 为通道 通道左边为要传的参数-->
-        <h3 v-rainbow>{{blog.title | to-uppercase}}</h3>
-        <article>{{blog.content | snippet}}</article>
-      </router-link>
+    <div class="blog-wrapper" v-if="haveBlog">
+      <div id="blog" v-for="blog of filteredBlogs" :key="blog.id">
+        <!--      跳转界面并传参-->
+        <router-link v-bind:to="'/blog/' + blog.id">
+          <!--      | 为通道 通道左边为要传的参数-->
+          <h3 v-rainbow>{{blog.title | to-uppercase}}</h3>
+          <article>{{blog.content | snippet}}</article>
+        </router-link>
+      </div>
     </div>
+    <div v-else class="bg">Record the wonderful life</div>
   </div>
 </template>
 
@@ -21,6 +24,7 @@ export default {
     return {
       blogs: [],
       search: ''
+
     }
   },
   // 钩子函数 页面展示之前请求数据
@@ -30,10 +34,12 @@ export default {
     axios
       .get('/blog/list')
       .then(res => {
-        console.log('/blog/list--', res.data)
-        const dataObject = res.data
+        console.log('/blog/list--', res['data'])
+        const dataObject = res['data']
         if (dataObject['errno'] === -1) {
-             sessionStorage.setItem('accessToken', '')
+             sessionStorage.setItem('key', '')
+             this.$router.push('/')
+             return
         }
         dataObject['data'].forEach((data) => {
           this.blogs.push(data)
@@ -49,6 +55,9 @@ export default {
       return this.blogs.filter(blog => {
         return blog.title.match(this.search)
       })
+    },
+    haveBlog () {
+        return this.blogs.length > 0
     }
   },
 
@@ -89,6 +98,14 @@ export default {
   background-color: #eee;
   padding: 10px;
   margin: 10px 0;
+}
+
+.bg {
+  height: 300px;
+  font-size: 40px;
+  text-align: center;
+  line-height: 300px;
+  background-color: white;
 }
 
 /* 取消连接下划线 */

@@ -26,6 +26,7 @@
 </template>
 
 <script>
+// import { mapMutations } from 'vuex'
 export default {
   name: 'Login',
   data() {
@@ -40,16 +41,22 @@ export default {
     onSubmit() {
       this.axios.post('/user/login', this.user)
         .then((res) => {
-          const result = res.data
-          if (result['errno'] !== -1) {
-             sessionStorage.setItem('accessToken', 'login-success')
+          const result = res['data']
+          console.log('result=', result)
+
+          if (result['errno'] === -1) {
+              this.$alert({
+                  content: result['msg'],
+                bgc: 'rgba(136, 146, 155, 0.8)',
+                autoCloseTime: 2000
+             })
+             this.$store.commit('setUsername', null)
+                return
+            }
+            const username = res['data']['data']['username']
+            this.$store.commit('setUsername', username)
+            sessionStorage.setItem('key', 'login-success')
             this.$router.push('/show')
-          }
-          this.$alert({
-            content: result['msg'],
-            bgc: 'rgba(136, 146, 155, 0.8)',
-            autoCloseTime: 2000
-          })
         }).catch((err) => {
           console.log(err)
         })
