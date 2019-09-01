@@ -5,6 +5,7 @@ import AddBlog from '@/components/AddBlog'
 import SingleBlog from '@/components/SingleBlog'
 import EditBlog from '@/components/EditBlog'
 import Login from '@/components/Login'
+import Register from '@/components/Register'
 
 Vue.use(Router)
 
@@ -14,6 +15,11 @@ export default new Router({
             path: '/',
             name: 'Login',
             component: Login
+        },
+        {
+            path: '/register',
+            name: 'Register',
+            component: Register
         },
         {
             path: '/show',

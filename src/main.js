@@ -51,20 +51,26 @@ Vue.filter('snippet', function (value) {
 
 // 全局导航路由 登录验证
 router.beforeEach((to, from, next) => {
-    if (to.path === '/') {
+    if (to.path === '/' || to.path === '/register') {
         next()
     } else {
         console.log(to.meta.requireAuth)
-        console.log(sessionStorage.getItem('key'))
+        console.log(sessionStorage.getItem('key') || 'null')
 
-        if (to.meta.requireAuth && !sessionStorage.getItem('key')) {
-            console.log('该页面需要登陆')
-            next({ path: '/' })
-        } else {
-            console.log('该页面随意访问')
-            next()
+        if (to.meta.requireAuth) {
+            console.log('该页面需要授权登陆')
+            if (!sessionStorage.getItem('key')) {
+                console.log('用户未登录')
+                next({ path: '/' })
+                return
+            } else {
+                console.log('该页面已授权可随时访问')
+                next()
+                return
+            }
         }
-        console.log(to.path)
+        console.log('禁止访问非法界面', to.path)
+        next({ path: '/' })
     }
 })
 

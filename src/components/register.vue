@@ -17,14 +17,16 @@
                 v-model="user.password"
               />
             </div>
-            <button type="submit" class="btn btn-block btn-success mt-5 col-md-4 mx-auto">登录</button>
+            <div class="form-group text-center mt-3">
+              <label for="user.repassword">确认密码</label>
+              <input
+                type="current-password"
+                class="form-control col-md-4 mx-auto"
+                v-model="user.repassword"
+              />
+            </div>
+            <button type="submit" class="btn btn-block btn-success mt-5 col-md-4 mx-auto">注册</button>
           </form>
-          <div class="col-md-4 mx-auto bott mt-3">
-            <div class="left">还么有账号？</div>
-            <!-- <router-view to="/register" tag="div"> -->
-            <div class="right" @click="registerEvent">注册>>></div>
-            <!-- </router-view> -->
-          </div>
         </div>
       </div>
     </div>
@@ -34,42 +36,51 @@
 <script>
 // import { mapMutations } from 'vuex'
 export default {
-  name: 'Login',
+  name: 'Register',
   data() {
     return {
       user: {
-        username: this.$route.query.username,
-        password: this.$route.query.password
+        username: '',
+        password: '',
+        repassword: '',
+        timer: ''
       }
-    //   username: this.$route.params.username
     }
   },
   methods: {
     onSubmit() {
-      this.axios.post('/user/login', this.user)
-        .then((res) => {
-          const result = res['data']
-          console.log('result=', result)
+        if (this.user.password !== this.user.repassword) {
+            this.$alert({
+                content: '两次输入密码不一致！'
+            })
+            return
+        }
 
-            if (result['errno'] === -1) {
-                this.$alert({
-                    content: result['msg'],
-                    bgc: 'rgba(136, 146, 155, 0.8)',
-                    autoCloseTime: 2000
-                })
-                this.$store.commit('setUsername', null)
-                return
-            }
-            const username = res['data']['data']['username']
-            this.$store.commit('setUsername', username)
-            sessionStorage.setItem('key', 'login-success')
-            this.$router.push('/show')
+        this.axios.post('/user/register', this.user)
+        .then((res) => {
+            const result = res['data']
+            console.log('result=', result)
+            this.$alert({
+                content: result['msg'],
+                bgc: 'rgba(136, 146, 155, 0.8)',
+                autoCloseTime: 2000
+             })
+             this.createTimer()
         }).catch((err) => {
-          console.log(err)
+            console.log(err)
         })
     },
-    registerEvent() {
-        this.$router.push('/register')
+    createTimer() {
+      this.timer = setTimeout(() => {
+          // 向登录界面传递参数
+        this.$router.push({
+            path: '/',
+            query: {
+                username: this.user.username,
+                password: this.user.password
+            }
+        })
+      }, 2000)
     },
     alertView() {
       this.$alert({
@@ -78,6 +89,10 @@ export default {
         autoCloseTime: 2000
       })
     }
+  },
+  beforeDestroy() {
+    window.clearTimeout(this.timer)
+    console.log('beforeDestroy', this.timer)
   },
   created() {
     this.$emit('changeStatus', false)
@@ -108,7 +123,6 @@ export default {
 }
 
 .right {
-  cursor: pointer;
   flex: 1;
   text-align: right;
 }
