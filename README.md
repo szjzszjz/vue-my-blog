@@ -2,7 +2,7 @@
 
 > 简单博客案例
 
-## [node-blog 后台服务工程](https://github.com/szjzszjz/node-blog-1/tree/master)
+## [node-blog 后台服务工程(node-blog-express分支)](https://github.com/szjzszjz/node-blog/tree/node-blog-express)
 
 ## [Vue 从搭建项目到打包的基本流程](http://note.youdao.com/noteshare?id=7d723b445de3c0bad26a6bd94f18483b&sub=953B8B7E4F1F405DA214CCCDC8672B08)
 
