@@ -73,7 +73,7 @@ export default {
     },
     alertView() {
       this.$alert({
-        content: '这是提醒',
+        content: '这是',
         bgc: 'rgba(136, 146, 155, 0.8)',
         autoCloseTime: 2000
       })

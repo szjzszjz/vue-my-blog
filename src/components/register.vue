@@ -55,6 +55,12 @@ export default {
             })
             return
         }
+        if (!this.user.password || !this.user.username) {
+            this.$alert({
+                content: '用户名或密码不能为空！'
+            })
+            return
+        }
 
         this.axios.post('/user/register', this.user)
         .then((res) => {

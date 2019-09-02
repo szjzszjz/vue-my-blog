@@ -7,7 +7,11 @@
       @mouseenter="clearTimer"
       @mouseleave="createTimer"
     >
-      <span class="content">{{content}}</span>
+      <table border="0" cellspacing="0" cellpadding="0" class="content">
+        <tr>
+          <td class="text">{{content}}</td>
+        </tr>
+      </table>
     </div>
   </transition>
 </template>
@@ -25,7 +29,7 @@ export default {
     },
     bgc: {
       type: String,
-      default: '#eee'
+      default: '#ddd'
     },
     autoCloseTime: {
       type: Number,
@@ -43,9 +47,9 @@ export default {
   computed: {
     style () {
       return {
-        position: 'fixed',
-        right: '20px',
-        bottom: `${this.verticalOffset}px`,
+        // position: 'fixed',
+        // right: '20px',
+        // bottom: `${this.verticalOffset}px`,
         background: this.bgc
       }
     }
@@ -89,29 +93,31 @@ export default {
 
 <style lang="stylus" scoped>
 .alert-view {
-  box-sizing: border-box;
-  display: flex;
-  flex-wrap: wrap;
-  position: fixed;
-  top: 50%;
-  left: 50%;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left 0px
+  right 0px
+  margin: auto;
   width: 200px;
-  height: 50px;
-  margin-left -100px
-  margin-top -25px
+  height: 40px;
+  text-align: center;
+  padding: 5px 20px;
   border-radius: 25px;
   transition: all 0.3s;
 }
 
 .content {
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-  line-height: 50px;
+  display: inline-block;
+}
+
+.text {
+  height: 30px;
+  line-height: 30px;
+  min-width: 100px;
   text-align: center;
+  margin: 0px auto;
+  display: inline-block;
   font-size: 16px;
-  color: black;
-  padding: 0 10px 0 10px;
-  // background-color: red;
 }
 </style>
