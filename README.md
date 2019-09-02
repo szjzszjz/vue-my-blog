@@ -6,6 +6,10 @@
 
 ## [Vue 从搭建项目到打包的基本流程](http://note.youdao.com/noteshare?id=7d723b445de3c0bad26a6bd94f18483b&sub=953B8B7E4F1F405DA214CCCDC8672B08)
 
+## 自定义功能组件
+### 1. [位于屏幕中心的提醒弹窗](https://github.com/szjzszjz/vue-my-blog/tree/connect-mysql/src/common/alert)
+### 2. [位于屏幕右下角的弹窗叠加提醒弹窗](https://github.com/szjzszjz/vue-my-blog/tree/connect-mysql/src/common/notification)
+
 ## install plugins
 
 ### 1、vue-resource
