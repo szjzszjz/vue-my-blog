@@ -1,6 +1,7 @@
 # vue-my-blog
 
 > 简单博客案例
+## [请查看更全面的`connect-mysql`分支](https://github.com/szjzszjz/vue-my-blog/tree/connect-mysql)
 
 ## [node-blog 后台服务工程](https://github.com/szjzszjz/node-blog-1/tree/master)
 
