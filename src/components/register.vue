@@ -6,23 +6,34 @@
           <img src="../assets/logo.png" alt class="mx-auto d-block col-md-3" @click="alertView" />
           <form @submit.prevent="onSubmit">
             <div class="form-group text-center mt-5">
-              <label for="user.username">用戶名</label>
-              <input type="text" class="form-control col-md-4 mx-auto" v-model="user.username" />
-            </div>
-            <div class="form-group text-center mt-3">
-              <label for="user.password">密码</label>
+              <!-- <label for="user.username">用戶名</label> -->
               <input
-                type="current-password"
+                type="text"
+                @change="checkUsername"
                 class="form-control col-md-4 mx-auto"
-                v-model="user.password"
+                v-model="user.username"
+                placeholder="用户名"
               />
             </div>
-            <div class="form-group text-center mt-3">
-              <label for="user.repassword">确认密码</label>
+            <span>{{tip.username}}</span>
+            <div class="form-group text-center mt-4">
+              <!-- <label for="user.password">密码</label> -->
+              <input
+                type="password"
+                class="form-control col-md-4 mx-auto"
+                v-model="user.password"
+                placeholder="密码"
+              />
+            </div>
+            <div class="col-md-4 mx-auto">{{tip.password}}</div>
+
+            <div class="form-group text-center mt-4">
+              <!-- <label for="user.repassword">确认密码</label> -->
               <input
                 type="current-password"
                 class="form-control col-md-4 mx-auto"
                 v-model="user.repassword"
+                placeholder="确认密码"
               />
             </div>
             <button type="submit" class="btn btn-block btn-success mt-5 col-md-4 mx-auto">注册</button>
@@ -44,10 +55,23 @@ export default {
         password: '',
         repassword: '',
         timer: ''
-      }
+      },
+        tip: {
+            username: '',
+            password: '',
+            repassword: ''
+        }
     }
   },
   methods: {
+      checkUsername() {
+          console.log('ddd')
+          if (this.user.username.length < 2) {
+            this.tip.username = '用户名至少为两位！'
+          } else {
+            this.tip.username = ''
+          }
+      },
     onSubmit() {
         if (this.user.password !== this.user.repassword) {
             this.$alert({

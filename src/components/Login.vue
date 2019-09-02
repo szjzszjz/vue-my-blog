@@ -6,15 +6,21 @@
           <img src="../assets/logo.png" alt class="mx-auto d-block col-md-3" @click="alertView" />
           <form @submit.prevent="onSubmit">
             <div class="form-group text-center mt-5">
-              <label for="user.username">用戶名</label>
-              <input type="text" class="form-control col-md-4 mx-auto" v-model="user.username" />
+              <!-- <label for="user.username">用戶名</label> -->
+              <input
+                type="text"
+                class="form-control col-md-4 mx-auto"
+                v-model="user.username"
+                placeholder="用户名"
+              />
             </div>
-            <div class="form-group text-center mt-3">
-              <label for="user.password">密码</label>
+            <div class="form-group text-center mt-4">
+              <!-- <label for="user.password">密码</label> -->
               <input
                 type="current-password"
                 class="form-control col-md-4 mx-auto"
                 v-model="user.password"
+                placeholder="密码"
               />
             </div>
             <button type="submit" class="btn btn-block btn-success mt-5 col-md-4 mx-auto">登录</button>
