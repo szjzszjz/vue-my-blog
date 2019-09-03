@@ -1,5 +1,5 @@
 <template>
-  <div id="show-blogs" v-theme:column="'narrow'">
+  <div id="show-blogs" v-theme:column="'wide'">
     <h2>我的博客</h2>
     <input type="text" placeholder="搜索" v-model="search" />
     <div class="blog-wrapper" v-if="haveBlog">

@@ -1,5 +1,5 @@
 <template>
-  <div id="single-blog" v-theme="'narrow'">
+  <div id="single-blog" v-theme="'wide'">
     <div>
       <button v-on:click="updateBlog">编辑</button>
       <button v-on:click="deleteBlog">删除</button>
@@ -36,7 +36,8 @@ export default {
         .then(res => {
           this.$alert({
             message: res['data']['msg'],
-            type: 'info'
+            type: 'info',
+            time: 2000
           })
           this.$router.push({path: '/show'}) // 删除完之后，跳转到主页
         }).catch(err => {

@@ -30,7 +30,7 @@ Vue.directive('rainbow', {
 Vue.directive('theme', {
     bind(element, binding, vNode) {
         if (binding.value === 'wide') {
-            element.style.maxWidth = '1220px'
+            element.style.maxWidth = '800px'
         } else if (binding.value === 'narrow') {
             element.style.maxWidth = '560px'
         }

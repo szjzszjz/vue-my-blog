@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="top" v-theme="'narrow'">
+    <div class="top" v-theme="'wide'">
       <div class="right">
         <div class="welcome">
           欢迎，
@@ -9,7 +9,7 @@
         <div class="login-out" @click="loginOut">[退出]</div>
       </div>
     </div>
-    <nav v-theme="'narrow'">
+    <nav v-theme="'wide'">
       <ul>
         <li>
           <router-link to="/show" exact>博客</router-link>

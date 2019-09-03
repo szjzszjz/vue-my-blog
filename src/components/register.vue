@@ -1,7 +1,7 @@
 <template>
   <div class="registerPage outer row col-12 mx-auto">
     <div class="card inner col-4 registerCard" :style="registerCardStyle">
-       <div class="title col-8 mx-auto">博客注册</div>
+      <div class="title col-8 mx-auto">博客注册</div>
       <div class="card-body">
         <form @submit.prevent="onSubmit">
           <div class="form-group text-center mt-4">
@@ -13,7 +13,7 @@
               id="focusedInput"
               placeholder="用户名"
             />
-            <div class="tip text-left col-md-8 ">{{ tip.username }}</div>
+            <div class="tip text-left col-md-8">{{ tip.username }}</div>
           </div>
 
           <div class="form-group text-center mt-3">
@@ -24,7 +24,7 @@
               v-model="user.password"
               placeholder="密码"
             />
-            <div class="tip text-left col-md-8 ">{{ tip.password }}</div>
+            <div class="tip text-left col-md-8">{{ tip.password }}</div>
           </div>
 
           <div class="form-group text-center mt-3">
@@ -35,14 +35,10 @@
               v-model="user.repassword"
               placeholder="确认密码"
             />
-            <div class="tip text-left col-md-8 ">
-              {{ tip.repassword }}
-            </div>
+            <div class="tip text-left col-md-8">{{ tip.repassword }}</div>
           </div>
 
-          <button type="submit" :class="[canSubmit ? successClass : failClass]">
-            注册
-          </button>
+          <button type="submit" :class="[canSubmit ? successClass : failClass]">注册</button>
         </form>
         <div class="col-md-8 mx-auto bott mt-3">
           <div class="left" @click="registered">已注册</div>
@@ -128,12 +124,14 @@ export default {
       if (this.user.repassword.length < 4 && this.user.repassword.length > 0) {
         this.tip.repassword = '* 密码至少为四位！'
       } else {
-        this.tip.repassword = ''
-        if (this.user.password !== this.user.repassword) {
-          this.tip.repassword = '* 两次输入密码不一致！'
+          if (this.user.password !== this.user.repassword) {
+              this.tip.repassword = '* 两次输入密码不一致！'
         } else {
-          this.tip.password = ''
+            this.tip.password = ''
           this.tip.repassword = ''
+        }
+        if (this.user.repassword.length === 0) {
+            this.tip.repassword = ''
         }
       }
     },
@@ -269,9 +267,8 @@ export default {
 
 .left {
   flex: 1;
-  cursor pointer
-  color green
+  cursor: pointer;
+  color: green;
   text-align: left;
 }
-
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div id="add-blog">
+  <div id="add-blog" v-theme="'wide'">
     <h2 v-on:click="hClick">添加博客</h2>
     <form v-if="!submitted">
       <label>博客标题</label>
@@ -96,7 +96,8 @@ export default {
             if (data['data']['data']['id']) {
               this.$alert({
                 message: '发布成功！',
-                type: 'success'
+                type: 'success',
+                time: 2000
               })
             }
           }).catch(err => {

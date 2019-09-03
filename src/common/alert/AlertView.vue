@@ -25,7 +25,7 @@ export default {
       type: String,
       default: 'info'
     },
-    autoCloseTime: {
+    time: {
       type: Number,
       default: 1000
     }
@@ -80,13 +80,11 @@ export default {
   methods: {
     clearTimer() {
       window.clearTimeout(this.timerID)
-      // console.log('stop--' + this.timerID)
     },
     createTimer() {
-      // console.log('createTimer--' + this.autoCloseTime)
       this.timerID = setTimeout(() => {
         this.visible = false
-      }, this.autoCloseTime)
+      }, this.time)
     },
     // 动画完成之后执行此方法
     afterLeave(el) {
