@@ -1,0 +1,41 @@
+.outer{
+  position:relative;
+  height: 100%;
+  width: 100%;
+  //max-width 1024px
+  background: hsl(20,40%,90%) fixed;
+  background-image: url('~images/bg1.png')
+  background-size: cover
+  background-repeat no-repeat
+  background-position: center;
+  margin:auto
+}
+.inner:before{
+  content:'';
+  position:absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  filter:blur(7px); // 毛玻璃效果
+  background: hsl(20,40%,90%) fixed;
+  background-image: url('~images/bg1.png')
+  background-size: cover
+  background-repeat no-repeat
+  background-position: center
+  /*z-index: 0*/
+}
+.inner{
+  position:absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  // font:  20px/1.5 '宋体';
+  height: 80%;
+  width: 80%;
+  //max-width 1024px
+  margin: 14vh auto 0;
+  border-radius 10px
+  background:hsla(0,100%,100%,.3); // 色度  饱和度  亮度  透明
+}

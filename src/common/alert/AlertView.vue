@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade" @before-leave="beforeLeave" @after-leave="afterLeave">
+  <show-fade>
     <div
       class="alert-view"
       :style="style"
@@ -7,86 +7,103 @@
       @mouseenter="clearTimer"
       @mouseleave="createTimer"
     >
-      <table border="0" cellspacing="0" cellpadding="0" class="content">
-        <tr>
-          <td class="text">{{content}}</td>
-        </tr>
-      </table>
+      <span><img :src="this.imageUrl" class="image" alt=""/></span>
+      {{ message }}
     </div>
-  </transition>
+  </show-fade>
 </template>
 
 <script>
 export default {
   name: 'AlertView',
   props: {
-    content: {
+    message: {
       type: String,
       require: true
     },
-    closeBtn: {
-      type: String
-    },
-    bgc: {
+    type: {
       type: String,
-      default: '#ddd'
+      default: 'info'
     },
     autoCloseTime: {
       type: Number,
       default: 1000
     }
   },
-  data () {
+  data() {
     return {
       visible: true,
-      verticalOffset: 0,
-      barHeight: 0
+      images: {
+        info: require('./images/info.png'),
+        error: require('./images/error.png'),
+        success: require('./images/success.png'),
+        warning: require('./images/warning.png')
+      },
+      types: {
+        info: {
+          background: 'rgba(237, 242, 252, 0.9)',
+          border: '1px rgb(208, 220, 244) solid',
+          color: 'rgb(144, 147, 153)',
+          width: (this.message.length * 18 + 50) + 'px'
+        },
+        success: {
+          background: 'rgba(240, 249, 235, 0.9)',
+          border: '1px rgb(222, 247, 207) solid',
+          color: 'rgb(103, 194, 58)',
+          width: (this.message.length * 18 + 50) + 'px'
+        },
+        warning: {
+          background: 'rgba(254, 240, 240, 0.9)',
+          border: '1px rgb(242, 220, 220) solid',
+          color: 'rgb(230, 162, 60)',
+          width: (this.message.length * 18 + 50) + 'px'
+        },
+        error: {
+          background: 'rgba(254, 240, 240, 0.9)',
+          border: '1px #f9dbdb solid',
+          color: 'rgb(245, 108, 108)',
+          width: (this.message.length * 18 + 50) + 'px'
+        }
+      }
     }
   },
 
   computed: {
-    style () {
-      return {
-        // position: 'fixed',
-        // right: '20px',
-        // bottom: `${this.verticalOffset}px`,
-        background: this.bgc
-      }
+    style() {
+      console.log('length: ', this.message.length, 'width: ', this.message.length * 18 + 50, this.type)
+      return this.types[this.type]
+    },
+    imageUrl() {
+      return this.images[this.type]
     }
-    // clientWidth () {
-    //   return document.documentElement.clientWidth
-    // }
   },
   methods: {
-    clearTimer () {
+    clearTimer() {
       window.clearTimeout(this.timerID)
-      console.log('stop--' + this.timerID)
+      // console.log('stop--' + this.timerID)
     },
-    createTimer () {
-      console.log('createTimer--' + this.autoCloseTime)
+    createTimer() {
+      // console.log('createTimer--' + this.autoCloseTime)
       this.timerID = setTimeout(() => {
         this.visible = false
       }, this.autoCloseTime)
     },
     // 动画完成之后执行此方法
-    afterLeave (el) {
-      console.log('afterLeave')
+    afterLeave(el) {
+      // console.log('afterLeave')
       this.$emit('closed')
     },
-    beforeLeave (el) {
+    beforeLeave(el) {
       this.barHeight = this.$el.offsetHeight
-      console.log('beforeLeave' + this.barHeight)
     }
   },
   // 页面渲染完成之后加载计时器
-  mounted () {
+  mounted() {
     this.createTimer()
-    // console.log('document--', document.documentElement.clientWidth)
   },
   // 离开组件的时候销毁定时器
-  beforeDestroy () {
+  beforeDestroy() {
     window.clearTimeout(this.timerID)
-    console.log('clearTimeout--' + this.timerID)
   }
 }
 </script>
@@ -96,28 +113,22 @@ export default {
   position: absolute;
   top: 0px;
   bottom: 0px;
-  left 0px
-  right 0px
+  left: 0px;
+  right: 0px;
   margin: auto;
-  width: 200px;
+  // width: 250px;
   height: 40px;
+  // line-height: 40px;
   text-align: center;
-  padding: 5px 20px;
-  border-radius: 25px;
+  padding: 5px 10px;
+  border-radius: 5px;
   transition: all 0.3s;
-}
-
-.content {
-  display: inline-block;
-}
-
-.text {
-  height: 30px;
-  line-height: 30px;
-  min-width: 100px;
-  text-align: center;
-  margin: 0px auto;
-  display: inline-block;
   font-size: 16px;
+}
+
+.image {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
 }
 </style>

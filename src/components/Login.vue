@@ -1,36 +1,39 @@
 <template>
-  <div class="row mt-3 col-8 mx-auto">
-    <div class="col-md-12 col-lg-12">
-      <div class="card loginc">
-        <div class="card-body">
-          <img src="../assets/logo.png" alt class="mx-auto d-block col-md-3" @click="alertView" />
-          <form @submit.prevent="onSubmit">
-            <div class="form-group text-center mt-5">
-              <!-- <label for="user.username">用戶名</label> -->
-              <input
-                type="text"
-                class="form-control col-md-4 mx-auto"
-                v-model="user.username"
-                placeholder="用户名"
-              />
-            </div>
-            <div class="form-group text-center mt-4">
-              <!-- <label for="user.password">密码</label> -->
-              <input
-                type="current-password"
-                class="form-control col-md-4 mx-auto"
-                v-model="user.password"
-                placeholder="密码"
-              />
-            </div>
-            <button type="submit" class="btn btn-block btn-success mt-5 col-md-4 mx-auto">登录</button>
-          </form>
-          <div class="col-md-4 mx-auto bott mt-3">
-            <div class="left">还么有账号？</div>
-            <!-- <router-view to="/register" tag="div"> -->
-            <div class="right" @click="registerEvent">注册>>></div>
-            <!-- </router-view> -->
+  <div class="loginPage outer row col-12 mx-auto">
+    <div class="card inner loginCard  col-4 mx-auto">
+      <div class="title col-8 mx-auto">博客登录</div>
+      <div class="card-body ">
+        <form @submit.prevent="onSubmit">
+          <div class="form-group text-center mt-5">
+            <!-- <label for="user.username">用戶名</label> -->
+            <input
+              type="text"
+              class="form-control col-md-8 mx-auto"
+              v-model="user.username"
+              placeholder="用户名"
+            />
           </div>
+          <div class="form-group text-center mt-4">
+            <!-- <label for="user.password">密码</label> -->
+            <input
+              type="current-password"
+              class="form-control col-md-8 mx-auto"
+              v-model="user.password"
+              placeholder="密码"
+            />
+          </div>
+          <button
+            type="submit"
+            class="btn btn-block btn-success mt-5 col-md-8 mx-auto"
+          >
+            登录
+          </button>
+        </form>
+        <div class="col-md-8 mx-auto bott mt-3">
+          <div class="left">还么有账号？</div>
+          <!-- <router-view to="/register" tag="div"> -->
+          <div class="right" @click="registerEvent">注册>>></div>
+          <!-- </router-view> -->
         </div>
       </div>
     </div>
@@ -38,7 +41,6 @@
 </template>
 
 <script>
-// import { mapMutations } from 'vuex'
 export default {
   name: 'Login',
   data() {
@@ -46,43 +48,50 @@ export default {
       user: {
         username: this.$route.query.username,
         password: this.$route.query.password
+      },
+      userList: {
+        username: '用户名',
+        password: '密码'
       }
-    //   username: this.$route.params.username
     }
   },
   methods: {
     onSubmit() {
+      for (let key in this.user) {
+        let value = this.user[key]
+        if (!value) {
+          console.log('value: ', value, 'key: ', key)
+          let value1 = this.userList[key]
+          this.$alert({
+            message: '请输入' + value1,
+            type: 'info'
+          })
+          return
+        }
+      }
       this.axios.post('/user/login', this.user)
         .then((res) => {
           const result = res['data']
           console.log('result=', result)
 
-            if (result['errno'] === -1) {
-                this.$alert({
-                    content: result['msg'],
-                    bgc: 'rgba(136, 146, 155, 0.8)',
-                    autoCloseTime: 2000
-                })
-                this.$store.commit('setUsername', null)
-                return
-            }
-            const username = res['data']['data']['username']
-            this.$store.commit('setUsername', username)
-            sessionStorage.setItem('key', 'login-success')
-            this.$router.push('/show')
+          if (result['errno'] === -1) {
+            this.$alert({
+              message: result['msg'],
+              type: 'error'
+            })
+            this.$store.commit('setUsername', null)
+            return
+          }
+          const username = res['data']['data']['username']
+          this.$store.commit('setUsername', username)
+          sessionStorage.setItem('key', 'login-success')
+          this.$router.push('/show')
         }).catch((err) => {
           console.log(err)
         })
     },
     registerEvent() {
-        this.$router.push('/register')
-    },
-    alertView() {
-      this.$alert({
-        content: '这是',
-        bgc: 'rgba(136, 146, 155, 0.8)',
-        autoCloseTime: 2000
-      })
+      this.$router.push('/register')
     }
   },
   created() {
@@ -96,14 +105,45 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-.loginc {
-  border: 0px solid red;
+@import '~styles/blur.styl';
+
+.title {
+  position: absolute;
+  top: -100px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 60px;
+  font-size: 35px;
+  text-align: center;
+  line-height: 60px;
+  color: #ffffff;
+  text-shadow: 4px, 5px, 5px;
+  margin-bottom: 10px;
+}
+
+.loginPage {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.loginCard {
+  position: relative;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  height: 350px;
+  background-color: #fff;
 }
 
 .bott {
   padding: 0;
   display: flex;
-  // background-color red
   font-size: 14px;
 }
 

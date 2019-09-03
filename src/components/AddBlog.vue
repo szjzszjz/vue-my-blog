@@ -95,21 +95,23 @@ export default {
             console.log('发布的数据=', data)
             if (data['data']['data']['id']) {
               this.$alert({
-                content: '发布成功！'
+                message: '发布成功！',
+                type: 'success'
               })
             }
           }).catch(err => {
             this.submitted = false
             this.showAgain = false
             this.$alert({
-              content: '发布失败！'
+              message: '发布失败！',
+              type: 'error'
             })
             console.log(err)
           })
       } else {
         this.$alert({
-          content: '请选择分类',
-          bgc: '#eee'
+          message: '请选择分类',
+          type: 'info'
         })
       }
     },

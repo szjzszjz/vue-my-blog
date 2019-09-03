@@ -8,9 +8,11 @@ import router from './router'
 import store from './store'
 import AlertView from './common/alert/index'
 import NotificationBar from './common/notification/index'
+import ShowFade from './common/fade/index'
 
 Vue.use(AlertView)
 Vue.use(NotificationBar)
+Vue.use(ShowFade)
 Vue.config.productionTip = false
 // 全局的axios
 Vue.prototype.axios = axios
